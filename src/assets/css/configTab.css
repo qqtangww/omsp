@@ -1,0 +1,7 @@
+.tabs-handout /deep/ #tab-skyblue {
+  background: skyblue;
+}
+
+.tabs-handout /deep/ #tab-hidden {
+  display: none;
+}

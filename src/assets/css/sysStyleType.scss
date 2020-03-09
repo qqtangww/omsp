@@ -1,0 +1,1126 @@
+// 历史栏菜单选中文字样式
+.historyBarSelectedTextStyle {
+    &.style-box {
+        color: #333;
+    }
+    button {
+        color: #333;
+      }
+}
+// 历史栏菜单未选中文字样式
+.historyBarUnselectedTextStyle {
+    &.style-box {
+        color: #666;
+    }
+    .el-button--info {
+        color: #666;
+      }
+}
+// 布局区域标题栏文字样式
+.regionTitleBarTextStyle {
+    &.style-box {
+        color: #ffffff;
+    }
+    .both-side-box {
+        .box-title {
+            color: #ffffff;
+            // 布局区域标题栏icon 离左边8px 2020/1/8 lyh测试文档
+            .box-title-icon{
+                margin-left: 8px;
+            }
+        }
+    }
+}
+// 系统标题区英文标题样式
+.systemEnglishTitleStyle {
+    color: #ffffff;
+}
+// 系统标题区中文标题样式
+.systemChineseTitleStyle {
+    color: #ffffff;
+}
+// 系统标题区用户名文字样式
+.systemTitleUserNameTextStyle {
+    color: #ffffff;
+}
+// 菜单展开节点样式
+.menuExpandNodeStyle {
+    &.style-box {
+        color: #333333;
+        font-weight: bold;
+    }
+    .menu-component /deep/ .el-submenu.is-opened > div .el-button {
+        color: #333333;
+        font-weight: bold;
+    }
+}
+// 菜单默认节点样式
+.menuDefaultNodeStyle {
+    &.style-box {
+        color: #666666;
+    }
+    .el-aside .el-submenu__title .el-submenu__title_content > button {
+        color: #666666;
+    }
+}
+// 菜单标题文字样式
+.menuTitleBarTextStyle {
+    &.style-box {
+        color: #ffffff;
+    }
+    .el-collapse-item__header {
+        color: #ffffff;
+    }
+}
+// 视图列链接文字样式
+.viewColumnLinkTextStyle {
+    &.style-box {
+        color: #5892F6;
+        text-decoration: underline!important;
+    }
+    .el-table__body .spanData .linkpage {
+        color: #5892F6;
+        text-decoration: underline!important;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled):hover {
+        color: #5892F6;
+    }
+    .el-pagination.is-background .el-pager li {
+        color: #666666;
+        background-color: #F0F0F0;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+        color: #ffffff;
+        background:linear-gradient(0deg,#2d8ed3 0%,#60a3f1 100%) ;
+    }
+    .viewPagination /deep/ .el-input__inner {
+        color: #333333;
+    }
+    .viewPagination /deep/ .el-input__suffix-inner i{
+        color: #333333;
+    }
+    .viewPagination_select .el-select-dropdown__item  span{
+        color: #333333;
+    }
+    .el-table__header th .cell {
+        color: #ffffff;
+    }
+    .el-table__body tr .cell {
+        color: #333333;
+    }
+    .el-pagination__total_copy span {
+        color: #333333;
+        font-weight: bold;
+    }
+}
+// 视图分页按钮Hover样式
+.viewPaginationButtonHoverStyle {
+    &.style-box {
+        color: #5892F6;
+    }
+    .el-table__body .spanData .linkpage {
+        color: #5892F6;
+        text-decoration: underline!important;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled):hover {
+        color: #5892F6;
+    }
+    .el-pagination.is-background .el-pager li {
+        color: #666666;
+        background-color: #F0F0F0;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+        color: #ffffff;
+        background:linear-gradient(0deg,#2d8ed3 0%,#60a3f1 100%) ;
+    }
+    .viewPagination /deep/ .el-input__inner {
+        color: #333333;
+    }
+    .viewPagination /deep/ .el-input__suffix-inner i{
+        color: #333333;
+    }
+    .viewPagination_select .el-select-dropdown__item  span{
+        color: #333333;
+    }
+    .el-table__header th .cell {
+        color: #ffffff;
+    }
+    .el-table__body tr .cell {
+        color: #333333;
+    }
+    .el-pagination__total_copy span {
+        color: #333333;
+        font-weight: bold;
+    }
+}
+// 视图分页按钮未选中样式
+.viewPaginationButtonUnselected {
+    &.style-box {
+        color: #666666;
+        background-color: #F0F0F0;
+    } 
+    .el-table__body .spanData .linkpage {
+        color: #5892F6;
+        text-decoration: underline!important;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled):hover {
+        color: #5892F6;
+    }
+    .el-pagination.is-background .el-pager li {
+        color: #666666;
+        background-color: #F0F0F0;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+        color: #ffffff;
+        background:linear-gradient(0deg,#2d8ed3 0%,#60a3f1 100%) ;
+    }
+    .viewPagination /deep/ .el-input__inner {
+        color: #333333;
+    }
+    .viewPagination /deep/ .el-input__suffix-inner i{
+        color: #333333;
+    }
+    .viewPagination_select .el-select-dropdown__item  span{
+        color: #333333;
+    }
+    .el-table__header th .cell {
+        color: #ffffff;
+    }
+    .el-table__body tr .cell {
+        color: #333333;
+    }
+    .el-pagination__total_copy span {
+        color: #333333;
+        font-weight: bold;
+    }
+}
+// 视图分页按钮选中样式
+.viewPaginationButtonuSelectedS {
+    &.style-box {
+        color: #ffffff;
+        background:linear-gradient(90deg,#60A3F1 0%,#2D8ED3 100%) ;
+    } 
+    .el-table__body .spanData .linkpage {
+        color: #5892F6;
+        text-decoration: underline!important;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled):hover {
+        color: #5892F6;
+    }
+    .el-pagination.is-background .el-pager li {
+        color: #666666;
+        background-color: #F0F0F0;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+        color: #ffffff;
+        background:linear-gradient(0deg,#2d8ed3 0%,#60a3f1 100%) ;
+    }
+    .viewPagination /deep/ .el-input__inner {
+        color: #333333;
+    }
+    .viewPagination /deep/ .el-input__suffix-inner i{
+        color: #333333;
+    }
+    .viewPagination_select .el-select-dropdown__item  span{
+        color: #333333;
+    }
+    .el-table__header th .cell {
+        color: #ffffff;
+    }
+    .el-table__body tr .cell {
+        color: #333333;
+    }
+    .el-pagination__total_copy span {
+        color: #333333;
+        font-weight: bold;
+    }
+}
+// 视图分页文字样式
+.viewPaginationTextStyle {
+    &.style-box {
+        color: #333333;
+    } 
+    .el-table__body .spanData .linkpage {
+        color: #5892F6;
+        text-decoration: underline!important;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled):hover {
+        color: #5892F6;
+    }
+    .el-pagination.is-background .el-pager li {
+        color: #666666;
+        background-color: #F0F0F0;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+        color: #ffffff;
+        background:linear-gradient(0deg,#2d8ed3 0%,#60a3f1 100%) ;
+    }
+    .viewPagination /deep/ .el-input__inner {
+        color: #333333;
+    }
+    .viewPagination /deep/ .el-input__suffix-inner i{
+        color: #333333;
+    }
+    .viewPagination_select .el-select-dropdown__item  span{
+        color: #333333;
+    }
+    .el-table__header th .cell {
+        color: #ffffff;
+    }
+    .el-table__body tr .cell {
+        color: #333333;
+    }
+    .el-pagination__total_copy span {
+        color: #333333;
+        font-weight: bold;
+    }
+}
+// 视图表头文字样式
+.viewTableHeadTextStyle {
+    &.style-box {
+        color: #ffffff;
+    } 
+    .el-table__body .spanData .linkpage {
+        color: #5892F6;
+        text-decoration: underline!important;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled):hover {
+        color: #5892F6;
+    }
+    .el-pagination.is-background .el-pager li {
+        color: #666666;
+        background-color: #F0F0F0;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+        color: #ffffff;
+        background:linear-gradient(0deg,#2d8ed3 0%,#60a3f1 100%) ;
+    }
+    .viewPagination /deep/ .el-input__inner {
+        color: #333333;
+    }
+    .viewPagination /deep/ .el-input__suffix-inner i{
+        color: #333333;
+    }
+    .viewPagination_select .el-select-dropdown__item  span{
+        color: #333333;
+    }
+    .el-table__header th .cell {
+        color: #ffffff;
+    }
+    .el-table__body tr .cell {
+        color: #333333;
+    }
+    .el-pagination__total_copy span {
+        color: #333333;
+        font-weight: bold;
+    }
+
+}
+// 视图正文文字样式
+.viewTextStyle {
+    &.style-box {
+        color: #333333;
+    } 
+    .el-table__body .spanData .linkpage {
+        color: #5892F6;
+        text-decoration: underline!important;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled):hover {
+        color: #5892F6;
+    }
+    .el-pagination.is-background .el-pager li {
+        color: #666666;
+        background-color: #F0F0F0;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+        color: #ffffff;
+        background:linear-gradient(0deg,#2d8ed3 0%,#60a3f1 100%) ;
+    }
+    .viewPagination /deep/ .el-input__inner {
+        color: #333333;
+    }
+    .viewPagination /deep/ .el-input__suffix-inner i{
+        color: #333333;
+    }
+    .viewPagination_select .el-select-dropdown__item  span{
+        color: #333333;
+    }
+    .el-table__header th .cell {
+        color: #ffffff;
+    }
+    .el-table__body tr .cell {
+        color: #333333;
+    }
+    .el-pagination__total_copy span {
+        color: #333333;
+        font-weight: bold;
+    }
+}
+// 表单描述文字样式 (表单统一样式类名)
+.formDesriptionStyle {
+    &.style-box {
+        color: #999999;
+    } 
+    .std-form-action {
+        .formOperateBox {
+            .action-bar {
+                span {
+                    color: #333333;
+                }
+            }
+        }
+    }
+    .el-form {
+        /deep/ .el-form-item__content {
+            input::-webkit-input-placeholder{
+                color:#999999;
+            }
+            textarea::-webkit-input-placeholder{
+                color:#999999;
+            }
+            input::-moz-placeholder{
+                color:#999999;
+            }
+            textarea::-moz-placeholder{
+                color:#999999;
+            }
+            input:-moz-placeholder{
+                color:#999999;
+            }
+            textarea:-moz-placeholder{
+                color:#999999;
+            }
+            input:-ms-input-placeholder{
+                color:#999999;
+            }
+            textarea:-ms-input-placeholder {
+                color:#999999;
+            }
+        }
+        /deep/ .el-form-item  {
+            .el-form-item__label {
+                color: #666666;
+            }
+            input {
+                color: #333333;
+            }
+            /deep/ .el-form-item__content {
+                color: #333333;
+            }
+            textarea {
+                color: #333333;
+            }
+            .el-form-item__error {
+                color: #FF5757;
+            }
+        }
+        .border-box {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        .title-border {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        
+    }
+    .user-info-view {
+        .el-form {
+            /deep/ .el-form-item {
+                .el-form-item__label {
+                    color: #0A8FEF;
+                    font-weight: bold;
+                }
+            }
+            
+        }
+    }
+}
+// 表单正文样式 (表单统一样式类名)
+.formTextStyle {
+    &.style-box {
+        color: #333333;
+    }
+    .std-form-action {
+        .formOperateBox {
+            .action-bar {
+                span {
+                    color: #333333;
+                }
+            }
+        }
+    }
+    .el-form {
+        /deep/ .el-form-item__content {
+            input::-webkit-input-placeholder{
+                color:#999999;
+            }
+            textarea::-webkit-input-placeholder{
+                color:#999999;
+            }
+            input::-moz-placeholder{
+                color:#999999;
+            }
+            textarea::-moz-placeholder{
+                color:#999999;
+            }
+            input:-moz-placeholder{
+                color:#999999;
+            }
+            textarea:-moz-placeholder{
+                color:#999999;
+            }
+            input:-ms-input-placeholder{
+                color:#999999;
+            }
+            textarea:-ms-input-placeholder {
+                color:#999999;
+            }
+        }
+        /deep/ .el-form-item  {
+            .el-form-item__label {
+                color: #666666;
+            }
+            input {
+                color: #333333;
+            }
+            /deep/ .el-form-item__content {
+                color: #333333;
+            }
+            textarea {
+                color: #333333;
+            }
+            .el-form-item__error {
+                color: #FF5757;
+            }
+        }
+        .border-box {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        .title-border {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        
+    }
+    .user-info-view {
+        .el-form {
+            /deep/ .el-form-item {
+                .el-form-item__label {
+                    color: #0A8FEF;
+                    font-weight: bold;
+                }
+            }
+            
+        }
+    }
+}
+// 表单提示文字样式 (表单统一样式类名)
+.formWarningStyle {
+    &.style-box {
+        color: #FF5757;
+    }
+    .std-form-action {
+        .formOperateBox {
+            .action-bar {
+                span {
+                    color: #333333;
+                }
+            }
+        }
+    }
+    .el-form {
+        /deep/ .el-form-item__content {
+            input::-webkit-input-placeholder{
+                color:#999999;
+            }
+            textarea::-webkit-input-placeholder{
+                color:#999999;
+            }
+            input::-moz-placeholder{
+                color:#999999;
+            }
+            textarea::-moz-placeholder{
+                color:#999999;
+            }
+            input:-moz-placeholder{
+                color:#999999;
+            }
+            textarea:-moz-placeholder{
+                color:#999999;
+            }
+            input:-ms-input-placeholder{
+                color:#999999;
+            }
+            textarea:-ms-input-placeholder {
+                color:#999999;
+            }
+        }
+        /deep/ .el-form-item  {
+            .el-form-item__label {
+                color: #666666;
+            }
+            input {
+                color: #333333;
+            }
+            /deep/ .el-form-item__content {
+                color: #333333;
+            }
+            textarea {
+                color: #333333;
+            }
+            .el-form-item__error {
+                color: #FF5757;
+            }
+        }
+        .border-box {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        .title-border {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        
+    }
+    .user-info-view {
+        .el-form {
+            /deep/ .el-form-item {
+                .el-form-item__label {
+                    color: #0A8FEF;
+                    font-weight: bold;
+                }
+            }
+            
+        }
+    }
+}
+// 树形组件标题栏文字样式
+.treeTitleBarTextStyle {
+    &.style-box {
+        color: #ffffff;
+    }
+    .tree-wrap {
+        #template-tree-box {
+            .title {
+                color: #ffffff;
+            }
+        }
+    } 
+}
+// Tab选中标签样式
+.tabSelectedStyle {
+    &.style-box {
+        color: #333333;
+        background-color: #ABD6FF;
+        font-weight: bold;
+    }
+    .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+        color: #333333;
+        background-color: #ABD6FF;
+        font-weight: bold;
+    }
+}
+// Tab特殊标签样式
+.tabSpecialStyle {
+    &.style-box {
+        color: #FF5757;
+    }
+    #tab-specialTab {
+        color: #FF5757;
+    }
+}
+// Tab未选中标签样式
+.tabUnselectedStyle {
+    &.style-box {
+        color: #333333;
+    }
+    .el-tabs--border-card > .el-tabs__header .el-tabs__item {
+        color: #333333;
+    }
+}
+.formLabelStyleClass {
+    &.style-box {
+        color: #606266;
+    }
+    .std-form-action {
+        .formOperateBox {
+            .action-bar {
+                span {
+                    color: #333333;
+                }
+            }
+        }
+    }
+    .el-form {
+        /deep/ .el-form-item__content {
+            input::-webkit-input-placeholder{
+                color:#999999;
+            }
+            textarea::-webkit-input-placeholder{
+                color:#999999;
+            }
+            input::-moz-placeholder{
+                color:#999999;
+            }
+            textarea::-moz-placeholder{
+                color:#999999;
+            }
+            input:-moz-placeholder{
+                color:#999999;
+            }
+            textarea:-moz-placeholder{
+                color:#999999;
+            }
+            input:-ms-input-placeholder{
+                color:#999999;
+            }
+            textarea:-ms-input-placeholder {
+                color:#999999;
+            }
+        }
+        /deep/ .el-form-item  {
+            .el-form-item__label {
+                color: #666666;
+            }
+            input {
+                color: #333333;
+            }
+            /deep/ .el-form-item__content {
+                color: #333333;
+            }
+            textarea {
+                color: #333333;
+            }
+            .el-form-item__error {
+                color: #FF5757;
+            }
+        }
+        .border-box {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        .title-border {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        
+    }
+    .user-info-view {
+        .el-form {
+            /deep/ .el-form-item {
+                .el-form-item__label {
+                    color: #0A8FEF;
+                    font-weight: bold;
+                }
+            }
+            
+        }
+    }
+}
+// 表单操作按钮文字样式 (表单统一样式类名)
+.formButtonStyle {
+    &.style-box {
+        color: #333333;
+    }
+    .std-form-action {
+        .formOperateBox {
+            .action-bar {
+                span {
+                    color: #333333;
+                }
+            }
+        }
+    }
+    .el-form {
+        /deep/ .el-form-item__content {
+            input::-webkit-input-placeholder{
+                color:#999999;
+            }
+            textarea::-webkit-input-placeholder{
+                color:#999999;
+            }
+            input::-moz-placeholder{
+                color:#999999;
+            }
+            textarea::-moz-placeholder{
+                color:#999999;
+            }
+            input:-moz-placeholder{
+                color:#999999;
+            }
+            textarea:-moz-placeholder{
+                color:#999999;
+            }
+            input:-ms-input-placeholder{
+                color:#999999;
+            }
+            textarea:-ms-input-placeholder {
+                color:#999999;
+            }
+        }
+        /deep/ .el-form-item  {
+            .el-form-item__label {
+                color: #666666;
+            }
+            input {
+                color: #333333;
+            }
+            /deep/ .el-form-item__content {
+                color: #333333;
+            }
+            textarea {
+                color: #333333;
+            }
+            .el-form-item__error {
+                color: #FF5757;
+            }
+        }
+        .border-box {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        .title-border {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        
+    }
+    .user-info-view {
+        .el-form {
+            /deep/ .el-form-item {
+                .el-form-item__label {
+                    color: #0A8FEF;
+                    font-weight: bold;
+                }
+            }
+            
+        }
+    }
+}
+// 表单分类标题文字 (表单统一样式类名)
+.groupTitleStyle {
+    &.style-box {
+        color: #333333;
+        font-weight: bold;
+    }
+    .std-form-action {
+        .formOperateBox {
+            .action-bar {
+                span {
+                    color: #333333;
+                }
+            }
+        }
+    }
+    .el-form {
+        /deep/ .el-form-item__content {
+            input::-webkit-input-placeholder{
+                color:#999999;
+            }
+            textarea::-webkit-input-placeholder{
+                color:#999999;
+            }
+            input::-moz-placeholder{
+                color:#999999;
+            }
+            textarea::-moz-placeholder{
+                color:#999999;
+            }
+            input:-moz-placeholder{
+                color:#999999;
+            }
+            textarea:-moz-placeholder{
+                color:#999999;
+            }
+            input:-ms-input-placeholder{
+                color:#999999;
+            }
+            textarea:-ms-input-placeholder {
+                color:#999999;
+            }
+        }
+        /deep/ .el-form-item  {
+            .el-form-item__label {
+                color: #666666;
+            }
+            input {
+                color: #333333;
+            }
+            textarea {
+                color: #333333;
+            }
+            .el-form-item__error {
+                color: #FF5757;
+            }
+        }
+        .border-box {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        .title-border {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        
+    }
+    .user-info-view {
+        .el-form {
+            /deep/ .el-form-item {
+                .el-form-item__label {
+                    color: #0A8FEF;
+                    font-weight: bold;
+                }
+            }
+            
+        }
+    }
+}
+// 查看表单标签文字 (表单统一样式类名)
+.infoLabelStyle {
+    &.style-box {
+        color: #0A8FEF;
+        font-weight: bold;
+    }
+    .std-form-action {
+        .formOperateBox {
+            .action-bar {
+                span {
+                    color: #333333;
+                }
+            }
+        }
+    }
+    .el-form {
+        /deep/ .el-form-item__content {
+            input::-webkit-input-placeholder{
+                color:#999999;
+            }
+            textarea::-webkit-input-placeholder{
+                color:#999999;
+            }
+            input::-moz-placeholder{
+                color:#999999;
+            }
+            textarea::-moz-placeholder{
+                color:#999999;
+            }
+            input:-moz-placeholder{
+                color:#999999;
+            }
+            textarea:-moz-placeholder{
+                color:#999999;
+            }
+            input:-ms-input-placeholder{
+                color:#999999;
+            }
+            textarea:-ms-input-placeholder {
+                color:#999999;
+            }
+        }
+        /deep/ .el-form-item  {
+            .el-form-item__label {
+                color: #666666;
+            }
+            input {
+                color: #333333;
+            }
+            textarea {
+                color: #333333;
+            }
+            .el-form-item__error {
+                color: #FF5757;
+            }
+        }
+        .border-box {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        .title-border {
+            >span {
+                color: #333333;
+                font-weight: bold;
+            }
+        }
+        
+    }
+    .user-info-view {
+        .el-form {
+            /deep/ .el-form-item {
+                .el-form-item__label {
+                    color: #0A8FEF;
+                    font-weight: bold;
+                }
+            }
+            
+        }
+    }
+}
+// 视图分页数字文字样式
+.viewPaginationTotalNumberStyle {
+    &.style-box {
+        color: #333333;
+        font-weight: bold;
+    }
+    .el-table__body .spanData .linkpage {
+        color: #5892F6;
+        text-decoration: underline!important;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled):hover {
+        color: #5892F6;
+    }
+    .el-pagination.is-background .el-pager li {
+        color: #666666;
+        background-color: #F0F0F0;
+    }
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+        color: #ffffff;
+        background:linear-gradient(0deg,#2d8ed3 0%,#60a3f1 100%) ;
+    }
+    .viewPagination /deep/ .el-input__inner {
+        color: #333333;
+    }
+    .viewPagination /deep/ .el-input__suffix-inner i{
+        color: #333333;
+    }
+    .viewPagination_select .el-select-dropdown__item  span{
+        color: #333333;
+    }
+    .el-table__header th .cell {
+        color: #ffffff;
+    }
+    .el-table__body tr .cell {
+        color: #333333;
+    }
+    .el-pagination__total_copy span {
+        color: #333333;
+        font-weight: bold;
+    }
+}
+
+// 表格默认项
+.el-table {
+    .el-table__fixed {
+      box-shadow: none;
+          // 视图最底层的一行数据没有CheckBox和操作按钮 有一条灰色的线 
+    //   height: 100% ;
+    }
+    .el-table__fixed-right {
+      box-shadow: none;
+      // 视图最底层的一行数据没有CheckBox和操作按钮 有一条灰色的线 
+    //   height: 100% ;
+    }
+    > div {
+      width: 100%;
+      // background-image: linear-gradient(0deg, rgb(45, 142, 211) 0%, rgb(96, 163, 241) 100%);
+    }
+    table {
+      // 设置表头样式
+      thead {
+        th {
+          background: #e9eaec;
+          font-size: 12px;
+          color: #333333;
+          font-weight: normal;
+          padding: 0;
+          height: 30px;
+        }
+      }
+      tbody {
+        // height: 100%;
+        tr {
+          // height: 20px;
+          > td {
+            padding: 0;
+            &.el-table__expanded-cell {
+              padding: 0;
+              background: #fcfcfc;
+            }
+          }
+        }
+        .demo-table-expand {
+          .el-form-item {
+            width: 100%;
+            margin: 0;
+            height: 30px;
+            > label {
+              width: 80%;
+              height: 30px;
+              line-height: 30px;
+              color: #1e8beb;
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+    .ws-row td {
+      padding: 0 ;
+      .opeartionBtn {
+        font-size: 12px;
+        color: #333333;
+        padding: 0;
+      }
+    }
+    // 操作按钮颜色
+    button {
+      > span {
+        color: #32c5d2;
+      }
+    }
+    th > .cell{
+      white-space: nowrap ;
+    }
+  }
+//   树节点计数样式
+  .treeNodeCountStyle {
+    &.style-box {
+        color: #5892F6;
+    }
+    #template-tree-box {
+        .treeNum {
+            color: #5892F6;
+        }
+    }
+  }
+
+//   节点文字样式
+.treeNodeTextStyle {
+    &.style-box {
+        color: #333333;
+        font-weight: bold;
+    }
+    #template-tree-box {
+        .tree-text-span {
+            color: #333333;
+            font-weight: bold;
+        }
+    }
+  }

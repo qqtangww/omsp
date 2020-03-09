@@ -1,0 +1,55 @@
+// 白色背景
+.CFFFFFF {
+  background-color: #FFFFFF !important;
+}
+// 偶数行
+.CF5FAFE {
+  background-color: #F5FAFE !important;
+}
+// 特殊行（偏红色）
+.CFFACAC {
+  background-color: #FFACAC !important;
+}
+// 特殊行（偏橙色）
+.CFFC39B {
+  background-color: #FFC39B !important;
+}
+// 特殊行（偏绿色）
+.C9BF3E7 {
+  background-color: #9BF3E7 !important;
+}
+
+// 特殊列（偏红色）
+.CFF8B8B{
+  background: #FF8B8B;
+}
+// 特殊列（偏橙色）
+.CFBAC78{
+  background: #FBAC78;
+}
+// 特殊列（偏绿色）
+.C3FF8C6{
+  background: #3FF8C6;
+}
+
+// hover样式 必须写 后面 否则 会被层叠
+.CDAE7FE .el-table__body tr.hover-row > td{
+  background:linear-gradient(0deg,#DAE7FE 0%,#DAE7FE 100%) !important;
+}
+
+// 表头样式
+.headerCls-blue{
+  background:linear-gradient(180deg,rgba(93,162,239,1) 0%,rgba(43,142,209,1) 100%) !important;
+  color: white !important;
+}
+.headerCls-white{
+  background: white;
+  color: #333333 !important;
+}
+.headerCls-gray{
+  color: #333333 !important;
+  background:rgba(247,247,247,1) !important;
+}
+.red .is-current > .el-tree-node__content{
+  background-color: red;
+}

@@ -1,0 +1,676 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-10 17:22:21
+ * @LastEditTime: 2019-08-27 17:42:26
+ * @LastEditors: Please set LastEditors
+ -->
+<template>
+  <div class="tree-wrap">
+    <div id="template-tree-box">
+      <!-- 标题栏 -->
+      <tree-title v-if="treeConfig.confView.isshowtitlebar === '1'" :configData='treeConfig' @getDialogStatus='getDialogStatus' @btnConfigData="getBtnConfigData" @customShareData="customShareData" @getData='getTreeData'></tree-title>
+      <el-input
+        v-if="treeConfig.confView.isshowsearchbar === '1'"
+        placeholder="输入关键字进行过滤"
+        class="tree-input-search"
+        v-model="filterText">
+        <el-button slot="append" icon="el-icon-search"></el-button>
+      </el-input>
+      <div class="tree-layout">
+        <!-- :class="classList" -->
+        <el-tree
+          :class="classList"
+          ref="tree"
+          node-key="i_Cid"
+          :data="treeData"
+          :props="defaultProps"
+          :draggable="treeConfig.confView.isdropsort === '1'"
+          :show-checkbox="treeConfig.confView.isshowselectbar === '1'"
+          :allow-drop="allowDrop"
+          :allow-drag="allowDrag"
+          :default-expand-all="false"
+          :expand-on-click-node='true'
+          :accordion='treeConfig.confView.isaccordionmode === "1"'
+          :default-expanded-keys="expandedKeys"
+          :filter-node-method="filterNode"
+          :load="loadNode"
+          lazy
+          @node-drag-start="handleDragStart"
+          @node-drop="handleDrop"
+          @node-click="handleNodeClick" >
+          <div class="custom-tree-node" slot-scope="{ data }" :class="data.specialNodeClass ? data.specialNodeClass : ''">
+          <!-- <div class="custom-tree-node" slot-scope="{ data }"> -->
+            <div class="treeIconBox">
+              <div class="treeIconBox-right" v-if="data.isVirtualNode">
+                <span>
+                  <!-- 虚拟跟节点前面的图标 -->
+                  <i :class="data.iconurl" :style="{'color':data.iconcolor}" v-if="data.iconurl" class="node-icon"></i>
+                  {{ data[defaultProps.label] }}
+                </span>
+              </div>
+              <div class="treeIconBox-right" v-else>
+                <div>
+                  <!-- 节点前面的图标 -->
+                  <i :class="data.iconUrlData ? data.iconUrlData : data.iconurl" :style="{'color':data.iconUrlData ? data.iconColorData : data.iconcolor}" v-if="data.iconurl" class="node-icon"></i>
+                  <span :class="nodeObj.nodetextstyle">{{ getNodeData(defaultProps.label, data) }}</span>
+                  <span :class="nodeObj.nodetextstyle" v-if="nodeObj.isShowNodeNum === '1' && data[nodeObj.shownumfield] !== '0'">(</span>
+                  <span v-if="nodeObj.isShowNodeNum === '1' && data[nodeObj.shownumfield] !== '0'" :class="nodeObj.nodenumstyle">{{ data[nodeObj.shownumfield] }}</span>
+                  <span :class="nodeObj.nodetextstyle" v-if="nodeObj.isShowNodeNum === '1' && data[nodeObj.shownumfield] !== '0'">)</span>
+                </div>
+                <div class="iconBox" v-if="rowID === data.i_Id">
+                  <!-- 节点操作按钮 -->
+                  <div
+                    class="tree-node-button"
+                    v-for="(item,index) in treeConfig.confOperation.inline"
+                    :key="index">
+                    <!-- displaystyle：1-图标文字,2-仅图标,3-仅文字 -->
+                    <div v-if="item.specialdisplayfunc ? transformStr(item,data) : true">
+                      <el-tooltip
+                        v-if="item.displaystyle === '2'"
+                        class="item"
+                        effect="dark"
+                        :content="item.operationname"
+                        placement="bottom">
+                        <!-- 仅图标 -->
+                        <el-button
+                          :disabled="item.isdisabled === '1'"
+                          @click.prevent.stop="getFunction(item,data)"
+                          type="text"
+                        ><i :class="item.iconurl" :style="{'color':item.iconcolor}"></i></el-button>
+                      </el-tooltip>
+                      <!-- 仅文字 -->
+                      <el-button
+                        v-else-if="item.displaystyle === '3'"
+                        :disabled="item.isdisabled === '1'"
+                        type="text"
+                        @click.prevent.stop="getFunction(item,data)"
+                      >{{ item.operationname }}</el-button>
+                      <!-- 图标文字 -->
+                      <el-button
+                        v-else
+                        :disabled="item.isdisabled === '1'"
+                        type="text"
+                        @click.prevent.stop="getFunction(item,data)"
+                      ><i :class="item.iconurl" :style="{'color':item.iconcolor}"></i>{{item.operationname}}
+                      </el-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </el-tree>
+      </div>
+    </div>
+    <dialog-standard v-on="$listeners" v-if="ifDialog" :ifDialog='ifDialog' @getDialogStatus='getDialogStatus' :configData='btnConfigData' :shareData='currentData' @getData='getTreeData'></dialog-standard>
+  </div>
+</template>
+<script>
+import util from '@/common/js/util.js'
+import { API } from '@/api/basic'
+import cgiService from '@/api/cgiService'
+// 弹框
+import treeMixin from '@/common/js/mixins/treeMixin'
+import dialogStandard from '@/components/stdDialog/stdDialogAction'
+import treeTitle from '@/components/stdTitle/treeTitle'
+import Vue from 'vue'
+export default {
+  props: {
+    // 传入一个对象 作为请求树的配置项接口 参数
+    configData: {
+      type: Object,
+      default () {
+        return Object.create(null)
+      }
+    },
+    shareData: Object
+  },
+  mixins: [treeMixin],
+  data () {
+    return {
+      treeConfig: {
+        confView: {},
+        confOperation: {}
+      },
+      // 节点是否可被选择
+      showCheckbox: true,
+      // 是否展示查询栏
+      showSearch: true,
+      // 查询关键字 绑定的字段
+      filterText: '',
+      defaultProps: {
+        children: 'children',
+        label: '',
+        isLeaf: 'hasChildren'
+      },
+      // 树的数据
+      treeData: [],
+      // 默认展开的树节点
+      expandedKeys: [],
+      classList: [],
+      rowID: '',
+      // 请求树配置项 传递的参数
+      commitParams: {},
+      // 拖拽调用接口传递的数据
+      dragParams: {
+        currentData: {
+          i_Id: '',
+          Level: ''
+        },
+        sortData: {
+          Level: '',
+          ids: []
+        }
+      },
+      ifDialog: false,
+      // 传递按钮的配置项 后续根据配置项调取接口
+      btnConfigData: {},
+      // 传递当前节点的数据
+      currentData: {},
+      currentNodeKey: '',
+      // 接口请求回来的配置项数据
+      instanceConfigData: {},
+      // 是否懒加载节点
+      lazyNode: false,
+      // 保存当前节点数据
+      currentNodeData: null,
+      API,
+      // 树形行高类名
+      treeRowHeight: '',
+      virtualNodeData: {},
+      operationCode: '',
+      // 计算字段标识符
+      isCount: false,
+      // 计算字段的配置
+      countFieldConfig: {},
+      // 节点 配置对象
+      nodeObj: {
+        // 是否显示节点数字
+        isShowNodeNum: '',
+        // 数字字段
+        shownumfield: '',
+        // 节点文字样式
+        nodetextstyle: '',
+        // 节点数字样式
+        nodenumstyle: ''
+      }
+    }
+  },
+  watch: {
+    filterText (val) {
+      this.$refs.tree.filter(val)
+    },
+    configData: {
+      handler (nv) {
+        this.commitParams.cate = nv.i_Cate
+        this.commitParams.code = nv.v_Code
+        this.commitParams.catecode = nv.v_CateCode
+        this.operationCode = nv.operationcode
+        if (nv.response) {
+          this.treeConfig = nv.response.data
+          // 拿到显示字段
+          this.defaultProps.label = this.treeConfig.confView.showfield
+          let showField = this.treeConfig.confView.showfield
+          let columnList = this.treeConfig.confField
+          this.isCount = false
+          // 是否显示节点数字
+          this.nodeObj.isShowNodeNum = this.treeConfig.confView.isshownodenum
+          // 数字字段
+          this.nodeObj.shownumfield = this.treeConfig.confView.shownumfield
+          // 是否显示节点数字
+          this.nodeObj.nodetextstyle = this.treeConfig.confView.nodetextstyle
+          // 是否显示节点数字
+          this.nodeObj.nodenumstyle = this.treeConfig.confView.nodenumstyle
+          // 拿到显示字段 去返回的字段中找对应字段的配置
+          // 拿到显示字段columntype 判断是基础还是计算
+          columnList.forEach(item => {
+            // 如果返回的字段列表中，包含显示字段 并且 这个字段的类型是计算字段 countFieldConfig
+            this.isCount = item.colname.includes(showField) && item.columntype === '2'
+            // 如果显示字段是计算字段，把该字段的配置存储
+            this.countFieldConfig = this.isCount ? item : {}
+          })
+
+          // 如果设置了虚拟根节点
+          if (this.treeConfig.confView.hasOwnProperty('isrootnode') && this.treeConfig.confView.isrootnode === '1') {
+            this.virtualNodeData = {
+              [this.defaultProps.label]: this.treeConfig.confView.rootnodename,
+              isVirtualNode: true,
+              iconurl: this.treeConfig.confView.rootnodeicon,
+              [this.treeConfig.confView.sonfield]: this.treeConfig.confView.sonfield
+            }
+          }
+          // 调取树数据
+          this.getTreeData()
+          // 背景
+          if (this.treeConfig.confView.trbgcolor) {
+            this.classList.push(this.treeConfig.confView.trbgcolor)
+          }
+          // hover
+          if (this.treeConfig.confView.trhoverstyle) {
+            this.classList.push(this.treeConfig.confView.trhoverstyle)
+          }
+          // 选中行
+          if (this.treeConfig.confView.checkedstyle) {
+            this.classList.push(this.treeConfig.confView.checkedstyle)
+          }
+          // // 未展开节点
+          // if (this.treeConfig.confView.setnoexpandnode) {
+          //   this.classList.push(this.treeConfig.confView.setnoexpandnode)
+          // }
+          // // 已展开节点
+          // if (this.treeConfig.confView.setexpandnode) {
+          //   this.classList.push(this.treeConfig.confView.setexpandnode)
+          // }
+        }
+      },
+      immediate: true
+    },
+    shareData: {
+      deep: true,
+      // immediate: true,
+      handler (nv) {
+        if (this.currentNodeData) {
+          // this.currentNodeData = Object.assign(this.currentNodeData, nv)
+          for (let key in nv) {
+            Vue.set(this.currentNodeData, key, nv[key])
+          }
+          this.$emit('changeShareData', this.currentNodeData)
+        }
+      }
+    }
+  },
+  methods: {
+    // 弹框关闭之后会 传一个false 过来
+    getDialogStatus (flag) {
+      this.ifDialog = flag
+    },
+    joinStr (key, value) {
+      if (key) {
+        let strFun = `${key}`
+        return window.eval(strFun)(value)
+      } else {
+        // this.$message.warning('公式有误')
+      }
+    },
+    // columntype 等于1为基础字段，等于2是计算字段
+    getNodeData (field, nodeData) {
+      if (this.isCount) {
+        // 根据数据类型不同进行不同分类处理
+        // 1：匿名函数 2：命名函数 3：转换代码 4：sql计算公式
+        let data = ''
+        switch (this.countFieldConfig.fieldtype) {
+          case '1':
+            data = this.joinStr(this.countFieldConfig.func, nodeData)
+            break
+          case '2':
+            // 如果是命名函数
+            data = this.methodSplit('function(test,da)')
+            break
+          case '3':
+            data = nodeData[field]
+            break
+          case '4':
+            data = nodeData[field]
+            break
+          default:
+            break
+        }
+        return data
+      } else {
+        return nodeData[field]
+      }
+    },
+    // 解析匿名函数体
+    transformStr (item, nodeData) {
+      return util.transformStr(item.specialdisplayfunc, nodeData)
+    },
+    // 拿到系统操作按钮 的配置
+    getBtnConfigData (obj) {
+      this.btnConfigData = obj
+    },
+    customShareData (data) {
+      this.currentData = data
+    },
+    showTreeDialog (flag) {
+      this.ifDialog = flag
+    },
+    // 按钮点击事件
+    getFunction (item, currentNode) {
+      let configObj = {}
+      configObj.interfaceData = item
+      configObj.currentData = currentNode
+      configObj.data = this.treeData
+      // 往下传递当前节点数据
+      this.currentData = currentNode
+      // 把树 数据传递下去 方便后面组件使用
+      this.$set(this.currentData, 'treeData', this.treeData)
+      this.buttonClick(configObj)
+    },
+    // 调取树 数据
+    getTreeData (nodeData) {
+      var getTreeDataUrl = ''
+      let getTreeDataParams = {}
+      // 判断是否有扩展接口
+      if (this.treeConfig.confView.extendedinterface) {
+        getTreeDataUrl = this.treeConfig.confView.extendedinterface
+        getTreeDataParams.v_TreeCode = this.treeConfig.confView.treecode
+      } else {
+        getTreeDataUrl = 'InterfaceGrid/getCategoryTreeData/' + this.treeConfig.confView.treecode
+      }
+      API.post(getTreeDataUrl, getTreeDataParams).then(res => {
+        if (!res.code) {
+          // 判断树 的节点设置中  有没有设置节点配置
+          if (this.treeConfig.confNode.length > 0) {
+            // 如果有 就往 对应的节点数据 添加配置字段
+            this.nodeSetting(this.treeConfig.confNode, res.data)
+            this.setVirtualNode(this.temporaryTreeData)
+          } else {
+            this.setVirtualNode(res.data)
+          }
+          this.setFirstChecked()
+          // 如果没有传递node 下面不执行
+          if (!nodeData) return
+          if (nodeData.hasOwnProperty('commitFormData')) {
+            this.$emit('changeShareData', nodeData.commitFormData)
+          }
+          if (nodeData.hasOwnProperty('cId')) {
+            this.currentNodeKey = nodeData.cId
+          }
+        }
+      })
+    },
+    // 把虚拟节点数据 和 树数据进行拼接
+    setVirtualNode (currentTreeData) {
+      // 判断有无虚拟节点
+      if (JSON.stringify(this.virtualNodeData) !== '{}') {
+        this.virtualNodeData.children = currentTreeData
+        this.treeData.unshift(this.virtualNodeData)
+      } else {
+        // 没有虚拟根节点
+        this.treeData = currentTreeData
+      }
+    },
+    //  是否缺省选中首行 && 判断第一个节点能不能被点击
+    setFirstChecked () {
+      if (this.treeConfig.confView.isexpandcheckfirstline === '1' && this.treeData[0].ischecked !== '0') {
+        if (!this.currentNodeKey) {
+          this.currentNodeKey = this.treeData[0].i_Cid
+        }
+        // 保存首行数据
+        this.currentNodeData = this.treeData[0]
+        this.$nextTick(() => {
+          this.$refs.tree.setCurrentKey(this.currentNodeKey)
+          let currNode = this.$refs.tree.getCurrentNode()
+          this.handleNodeClick(currNode)
+          this.currentData = currNode
+        })
+      }
+    },
+    // 节点点击的回调
+    handleNodeClick (data, node, ev) {
+      this.$listeners.changeShareData(data)
+      // 把传下来的数据合并一起
+      if (JSON.stringify(this.shareData) !== '{}') {
+        data = Object.assign(data, this.shareData)
+      }
+      // 保存当前行数据
+      this.currentNodeData = data
+      // 把当前节点的数据存到vuex
+      this.$store.commit('rowData', data)
+      // 节点 不被选中
+      if (data.ischecked === '0') {
+        let clickNode = ev.$el.querySelector('.el-tree-node__content')
+        if (clickNode) {
+          clickNode.style.background = 'none'
+        }
+      } else {
+        this.rowID = data.i_Id
+      }
+    },
+    mergeData (mergeObj) {
+      mergeObj.data = Object.assign(mergeObj.data, mergeObj.nodeConfig)
+      // 处理特殊接节点
+      if (mergeObj.data.isspecialnode === '1') {
+        let specialNodeClass = util.transformStr(mergeObj.data.specialfunc, mergeObj.data)
+        mergeObj.data.specialNodeClass = specialNodeClass
+      }
+    },
+    recursionLevel (recursionObj) {
+      let nodeConfig = recursionObj.nodeConfig
+      recursionObj.data.map((item, index) => {
+        for (let i = 0; i < nodeConfig.length; i++) {
+          // 如果当前节点数据等级 等于 节点配置项层级
+          // 就把节点配置和节点数据进行整合
+          if (Number(item.level) === Number(nodeConfig[i].nodelevel)) {
+            // console.log(item.v_OrgFullName)
+            this.mergeData({ data: item, nodeConfig: nodeConfig[i] })
+            break
+          } else {
+            // 如果不等于就是缺省的节点配置
+            // 把剩下的节点配置和节点数据进行整合
+            this.mergeData({ data: item, nodeConfig: nodeConfig[i] })
+          }
+        }
+        // 继续递归
+        if (item.children) {
+          this.recursionLevel({ data: item.children, nodeConfig: recursionObj.nodeConfig })
+        }
+      })
+      this.treeData = recursionObj.data
+    },
+    recursionType (recursionObj) {
+      let nodeConfig = recursionObj.nodeConfig
+      let nodetypefield = recursionObj.nodetypefield
+      recursionObj.data.map((item, index) => {
+        for (let i = 0; i < nodeConfig.length; i++) {
+          // 如果当前节点数据等级 等于 节点配置项层级
+          // 就把节点配置和节点数据进行整合
+          if (item[nodetypefield] === nodeConfig[i].nodelevel) {
+            this.mergeData({ data: item, nodeConfig: nodeConfig[i] })
+            break
+          } else {
+            // 如果不等于就是缺省的节点配置
+            // 把剩下的节点配置和节点数据进行整合
+            this.mergeData({ data: item, nodeConfig: nodeConfig[i] })
+          }
+        }
+        // 继续递归
+        if (item.children) {
+          this.recursionType({ data: item.children, nodeConfig: recursionObj.nodeConfig, nodetypefield: nodetypefield })
+        }
+      })
+      this.treeData = recursionObj.data
+      // console.log(this.treeData)
+    },
+    // 节点设置
+    nodeSetting (nodeConfig, treeData) {
+      // 缺省
+      let defaultNode = '0'
+      // 层级
+      let levelNode = '1'
+      // 类型
+      let typeNode = '2'
+      // 判断是否有重复的节点配置数据
+      let nodeTypeArray = []
+      for (let i = 0; i < nodeConfig.length; i++) {
+        nodeTypeArray.push(nodeConfig[i].nodelevel)
+      }
+      let newArray = nodeTypeArray.sort()
+      for (let j = 0; j < newArray.length; j++) {
+        if (newArray[j] === newArray[j + 1]) {
+          this.$message.warning('树节点设置有重复配置，请确认后重试')
+          return
+        }
+      }
+      // nodeSettingType: '节点设置依据 (1-层级  2-类型)'
+      let nodeSettingType = this.treeConfig.confView.nodesettype
+      // 层级
+      if (nodeSettingType === levelNode) {
+        this.recursionLevel({ data: treeData, nodeConfig: nodeConfig })
+      } else if (nodeSettingType === typeNode) {
+      // 类型
+        let nodetypefield = this.treeConfig.confView.nodetypefield
+        this.recursionType({ data: treeData, nodeConfig: nodeConfig, nodetypefield: nodetypefield })
+      }
+    },
+    // 节点开始拖拽时触发的事件
+    handleDragStart (node) {
+      this.dragParams.currentData.i_Id = node.data.i_Id
+      this.dragParams.currentData.Level = node.data.level
+    },
+    // 拖拽成功完成时触发的事件
+    handleDrop (draggingNode, dropNode, dropType, ev) {
+      let recursionNode = (nodeData, dropStartID) => nodeData.forEach((item, index) => {
+        // 在数据中找到 与当前拖拽的节点id 匹配的节点数据
+        // 以此来找到 上一个节点和下一个节点
+        if (item.i_Id === dropStartID) {
+          // this.dragParams.sortData.parentid = nodeData[0].i_Cid
+          if (nodeData[index - 1]) {
+            this.dragParams.sortData.parentId = nodeData[index - 1].i_Pid
+            // 拖拽位置 上一个id
+            this.dragParams.sortData.prevId = nodeData[index - 1].i_Id
+            // 拖拽完  节点的级别
+            this.dragParams.sortData.Level = nodeData[index - 1].level
+          }
+          if (nodeData[index + 1]) {
+            this.dragParams.sortData.parentId = nodeData[index + 1].i_Pid
+            // 拖拽位置 下一个id
+            this.dragParams.sortData.nextId = nodeData[index + 1].i_Id
+            // 拖拽完  节点的级别
+            this.dragParams.sortData.Level = nodeData[index + 1].level
+          }
+          // 如果当前放置的节点 只有被拖拽这么一个数据
+          if (!nodeData[index - 1] && !nodeData[index + 1]) {
+            // 放置之后  被拖拽节点  的层级
+            this.dragParams.sortData.Level = dropNode.level + 1
+            this.dragParams.sortData.parentId = dropNode.data.i_Cid
+          }
+          // 拖动后调序级的所有Id
+          this.dragParams.sortData.ids = []
+          nodeData.forEach(val => {
+            this.dragParams.sortData.ids.push(val.i_Id)
+          })
+          let params = JSON.stringify(this.dragParams)
+          cgiService.temCustomTreeOrgSort({ sortJson: params, v_treeCode: this.commitParams.code }).then(res => {
+            // console.log(res)
+          })
+        } else {
+          if (item.children) {
+            recursionNode(item.children, dropStartID)
+          } else {
+            // console.log(item.i_Id)
+          }
+        }
+      })
+      // 拖拽开始的时候 拿到被拖 的节点i_Id
+      let dropStartID = this.dragParams.currentData.i_Id
+      recursionNode(this.treeData, dropStartID)
+    },
+    // 拖拽时判定目标节点能否被放置
+    allowDrop (draggingNode, dropNode, type) {
+      return dropNode.data.isdropedplace === '1'
+    },
+    // 判断节点能否被拖拽
+    allowDrag (draggingNode) {
+      return Number(draggingNode.data.isdropsort) === 1
+    },
+    loadNode (node, resolve) {
+      // 是否懒加载树节点 1 是  0 否
+      let isLoadNode = this.treeConfig.confView.isloadnode
+      // 懒加载层级
+      let loadlimitnode = this.treeConfig.confView.loadlimitnode
+      // treecode
+      let treecode = this.treeConfig.confView.treecode
+      // 配置里的 父字段
+      let parentField = this.treeConfig.confView.parentfield
+      // 配置里的 子字段
+      let sonfield = this.treeConfig.confView.sonfield
+      // 懒加载传参 ↓
+      // level: 点击的层级
+      // v_ParentField: 配置里面的父级字段
+      // v_Value：配置里面的子字段 的值
+      let params = {}
+      params.level = node.level
+      params.v_ParentField = parentField
+      params.v_SonField = sonfield
+      params.v_Value = node.data[sonfield]
+      // 懒加载通用接口
+      cgiService.temTreeLoadingData(treecode, params).then(res => {
+        if (!res.code) {
+          resolve(res.data)
+        } else {
+          resolve([])
+        }
+      })
+    },
+    filterNode (value, data) {
+      if (!value) return true
+      return data[this.defaultProps.label].indexOf(value) !== -1
+    }
+  },
+  components: {
+    dialogStandard,
+    treeTitle
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import "@/assets/css/configTreecss.scss";
+.node-icon{
+  font-size: 14px;
+}
+.tree-wrap{
+  height: 100%;
+  margin-bottom: 3px;
+  box-sizing: border-box;
+}
+#template-tree-box{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .tree-layout{
+    overflow: auto;
+    flex: 1;
+  }
+  .custom-tree-node{
+    width: 100%;
+  }
+  .iconBox > div{
+    float: left;
+    font-size: 12px;
+    margin-right: 8px;
+    i,span{
+      color: #333333;
+      font-family: 'Microsoft YaHei';
+      color: #5892f6;
+      font-style: normal;
+    }
+    i{
+      font-size: 14px;
+    }
+    span{
+      font-size: 12px;
+    }
+  }
+  .is-current > .el-tree-node__content {
+    background: linear-gradient(180deg, #eff5fc 0%, #a9d0fd 100%);
+  }
+  .tree-input-search{
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+.tree-node-button button{
+  padding: 0;
+  color: #5892F6;
+  font-size: 12px;
+  border: none;
+  &:hover{
+    border: none;
+  color: #5892F6;
+  }
+}
+ </style>

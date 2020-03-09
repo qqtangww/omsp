@@ -1,0 +1,42 @@
+// 树 背景
+.tree-white{
+    background-color: white;
+}
+// 树 标题栏
+.tree-title-bg{
+    background: linear-gradient(180deg,rgba(93,162,239,1) 0%,rgba(43,142,209,1) 100%)!important;
+}
+// 树 hover行
+.tree-hover /deep/ .el-tree-node__content:hover{
+    background: linear-gradient(0deg,#DAE7FE 0%,#DAE7FE 100%)!important;
+}
+// 树 选中行
+// 参数应用和区域背景色一样
+#template-tree-box .tree-focus /deep/ .el-tree-node.is-current > .el-tree-node__content{
+    background:linear-gradient(180deg,rgba(239,245,252,1) 0%,rgba(169,208,253,1) 100%)!important;
+}
+// 树 特殊节点
+.red{
+    color:  red;
+}
+// 节点文字样式
+.tree-text-normal{
+    color: #333333;
+}
+.tree-text-bold{
+    color: #333333;
+    font-weight: bold;
+}
+.tree-text-blue{
+    color: #5892F6;
+}
+// 节点数字样式
+.tree-num-normal{
+    color: #333333;
+}
+.tree-num-gery{
+    color: #666666;
+}
+.tree-num-blue{
+    color: #5892F6;
+}

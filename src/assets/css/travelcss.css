@@ -1,0 +1,240 @@
+.travel-modify .el-input-number .el-input__inner {
+  padding: 0 15px;
+}
+
+.w-138 .el-form-item .el-form-item__content, .w-138.el-form-item .el-form-item__content {
+  width: 138px;
+}
+
+.w-138 .el-form-item .el-input-number, .w-138.el-form-item .el-input-number {
+  width: 138px;
+}
+
+.w-380 .el-textarea__inner, .w-380 .el-form-item__content {
+  width: 380px;
+  box-sizing: border-box;
+}
+
+.form-upload.el-form-item .el-form-item__content {
+  padding: 16px 16px 8px 16px;
+  border: 1px solid #E6E6E6;
+  border-radius: 4px;
+}
+
+.form-upload.el-form-item .el-upload-list--picture-card .el-upload-list__item {
+  width: 100px;
+  height: 100px;
+}
+
+.form-upload.el-form-item .el-upload--picture-card {
+  width: 100px;
+  height: 100px;
+  line-height: 110px;
+}
+
+.form-upload.el-form-item .el-upload__tip {
+  line-height: 16px;
+}
+
+.form-upload.el-form-item .el-progress-circle {
+  width: 100px;
+  height: 100px;
+}
+
+#travel-apply {
+  display: flex;
+  width: 370px;
+}
+
+#travel-apply .selWorkerOption {
+  transform: scale(0.8);
+}
+
+#travel-apply .selWorkerOption:nth-of-type(1) {
+  flex: 0.5;
+}
+
+#travel-apply .selWorkerOption:nth-of-type(2) {
+  flex: 0.5;
+}
+
+#travel-apply .selWorkerOption:nth-of-type(3) {
+  flex: 1;
+}
+
+#travel-apply .selWorkerOption:nth-of-type(4) {
+  flex: 1;
+}
+
+.font-bold .el-input__inner {
+  color: #333333;
+  font-weight: bold;
+}
+
+.number-arrows {
+  width: 138px;
+}
+
+.number-arrows > span {
+  display: none;
+}
+
+.number-arrows .el-input__inner {
+  padding: 0 16px;
+}
+
+.number-arrows .el-input {
+  height: 30px;
+  line-height: 30px;
+}
+
+.img-dialog {
+  overflow: auto;
+}
+
+.img-dialog .el-dialog {
+  width: 650px;
+}
+
+.dialog-form {
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.dialog-form #form-heightauto .el-form-item__content {
+  height: auto;
+}
+
+.dialog-form .el-form-item__content {
+  font-size: 12px;
+}
+
+.dialog-form .dialog-form-info {
+  margin-bottom: 16px;
+  border: 1px solid #BFBFBF;
+  padding: 16px 26px 16px 16px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.dialog-form .dialog-form-info:last-of-type {
+  margin-bottom: 0;
+}
+
+.dialog-form .dialog-form-info .info-title {
+  height: 30px;
+  line-height: 30px;
+  position: absolute;
+  top: -15px;
+  background: #ffffff;
+  box-sizing: border-box;
+  padding: 0 8px;
+}
+
+.dialog-form .dialog-form-info .dialog-form-info-upload-item {
+  height: 80px;
+}
+
+.dialog-form .dialog-form-info .dialog-form-info-upload-item .dialog-form-info-upload {
+  height: 80px;
+  border: 1px solid #E6E6E6;
+  border-radius: 4px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.dialog-form .dialog-form-info .dialog-form-info-upload-item .dialog-form-info-upload .el-upload--picture-card {
+  display: none;
+}
+
+.dialog-form .dialog-form-info .dialog-form-info-upload-item .dialog-form-info-upload .el-upload-list__item {
+  width: 50px;
+  height: 50px;
+}
+
+.dialog-form .dialog-form-info .dialog-form-info-upload-item .dialog-form-info-upload .el-upload-list__item .el-upload-list__item-delete {
+  display: none;
+}
+
+.dialog-form .dialog-form-info .dialog-form-info-upload-item .dialog-form-info-upload .el-upload-list__item-status-label {
+  display: none;
+}
+
+.dialog-form .dialog-form-info .flagBox {
+  position: absolute;
+  top: -6px;
+  right: 16px;
+}
+
+.dialog-form .dialog-form-info .flagBox i {
+  font-size: 36px;
+}
+
+.dialog-form .dialog-form-info .flagBox span.flagNum {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-weight: bold;
+}
+
+.dialog-form .dialog-form-info .C6CEEE1 i {
+  color: #6CEEE1;
+}
+
+.dialog-form .dialog-form-info .CFFDD98 i {
+  color: #FFDD98;
+}
+
+.dialog-form .el-form-item {
+  margin-top: 0;
+}
+
+.dialog-form .el-form-item .el-form-item__content {
+  height: 30px;
+}
+
+.dialog-form #span-userid {
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.dialog-form .form-remark .el-form-item__content {
+  margin-top: 16px;
+}
+
+.dialog-form .form-remark .form-travel-remark {
+  height: 80px;
+  border-radius: 4px;
+  border: 1px solid #E6E6E6;
+  padding: 8px 16px;
+  box-sizing: border-box;
+}
+
+.dialog-form .margin-top-0 .el-form-item__content {
+  margin-top: 0;
+}
+
+.dialog-form .expectedFee .el-form-item__content {
+  color: #0A8FEF;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.form-payment-box #form-payment {
+  padding-bottom: 0;
+  border: none;
+}
+
+.form-payment-box #form-payment .el-form-item {
+  margin-top: 16px;
+}
+
+#item-margin-top-0 .el-form-item {
+  margin-top: 0;
+}
+
+.line-height-20 .el-form-item__content .el-date-editor .el-input__icon {
+  line-height: 20px;
+}
